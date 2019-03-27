@@ -10,7 +10,9 @@ app.get('/', (req, res) => {
 //options和post都得加cors()
 app.options('/upload', cors())
 app.post('/upload', cors(), upload.single('file'),(req,res)=>{
-    res.send(req.file.filename)
+    let fileAttr = req.file
+    let object = {id:fileAttr.filename}
+    res.send(JSON.stringify(object))
 })
 app.get('/preview/:key', cors(), (req,res)=>{
     res.sendFile(`uploads/${req.params.key}`,{
